@@ -6,17 +6,35 @@
   font-family: "Poppins", sans-serif;
 }
 
-/* Use CSS Grid for overall layout: sidebar + main + footer for better responsiveness */
+/* Global layout for overall page structure */
 body {
   display: grid;
   grid-template-columns: 220px 1fr;
-  grid-template-rows: 1fr auto;
+  grid-template-rows: auto 1fr;
   grid-template-areas:
-    "sidebar main"
-    "sidebar footer";
+    "sidebar main";
   min-height: 100vh;
-  background: #f4f5f7;
+
+  /* Clean, neutral theme */
+  background: linear-gradient(180deg, #f8f9fb 0%, #ffffff 100%);
   color: #333;
+
+  /* Smooth font rendering and subtle feel */
+  font-family: "Poppins", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* A bit of breathing space */
+  line-height: 1.6;
+  scroll-behavior: smooth;
+}
+
+/* Improve layout for smaller screens */
+@media (max-width: 900px) {
+  body {
+    display: block;
+    background: #f4f5f7;
+  }
 }
 
 /* Topbar for small screens */
@@ -236,3 +254,4 @@ h1 {
   .main-content { margin-left: 0; padding: 1rem; margin-top: 56px; }
   .site-footer { margin-left: 0; padding-left: 1rem; padding-right: 1rem; }
 }
+
