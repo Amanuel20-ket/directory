@@ -58,6 +58,7 @@
             </div>
           </div>
         </div>
+        </div>
       </section>
 
       <section class="about">
@@ -757,6 +758,14 @@
       <div class="site-row">
         <div class="site-card">
           <div class="site-card-container">
+            <img class="site-logo" loading="lazy" src="https://logo.clearbit.com/sportsline.com?size=200" onerror="this.onerror=null;this.src='https://www.google.com/s2/favicons?domain=sportsline.com&sz=128'" alt="SportsLine logo">
+            <div class="site-card-content"><h3>SportsLine</h3><p>Expert sports analysis and predictions.</p></div>
+            <div class="site-card-action"><a href="https://www.sportsline.com" target="_blank" rel="noopener">Visit</a></div>
+          </div>
+        </div>
+
+        <div class="site-card">
+          <div class="site-card-container">
             <img class="site-logo" loading="lazy" src="https://logo.clearbit.com/espn.com?size=200" onerror="this.onerror=null;this.src='https://www.google.com/s2/favicons?domain=espn.com&sz=128'" alt="ESPN+ logo">
             <div class="site-card-content"><h3>ESPN+</h3><p>Premium sports streaming and exclusive content.</p></div>
             <div class="site-card-action"><a href="https://plus.espn.com" target="_blank" rel="noopener">Visit</a></div>
@@ -963,17 +972,30 @@
 
   /* ----------------- Menu toggle ----------------- */
   function initMenuToggle() {
-    const btn = document.getElementById('menu-btn');
     const sb = document.querySelector('.sidebar');
-    if (!btn || !sb) return;
+    if (!sb) return;
 
-    btn.addEventListener('click', () => sb.classList.toggle('open'));
+    // Direct click handler on the button (preferred). Stop propagation
+    // so delegated handler doesn't run twice.
+    const btn = document.getElementById('menu-btn');
+    if (btn) {
+      btn.setAttribute('aria-expanded', 'false');
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const opened = sb.classList.toggle('open');
+        try { btn.setAttribute('aria-expanded', opened ? 'true' : 'false'); } catch (err) {}
+      });
+    }
 
-    // Close when clicking outside on small screens
+    // Delegated fallback: handles outside-click to close the sidebar on small screens
     document.addEventListener('click', (e) => {
+      // If sidebar is open on small screens and user clicked outside, close it.
       if (window.innerWidth >= 768) return;
       if (!sb.classList.contains('open')) return;
-      if (!sb.contains(e.target) && !btn.contains(e.target)) sb.classList.remove('open');
+      if (!sb.contains(e.target)) {
+        sb.classList.remove('open');
+        if (btn) try { btn.setAttribute('aria-expanded', 'false'); } catch (err) {}
+      }
     });
   }
 
@@ -1030,4 +1052,26 @@
 })();
 
 
+// script.js
 
+// Wait until DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+  // Mobile menu toggle
+  const menuBtn = document.getElementById('menu-btn');
+  const sidebar = document.querySelector('.sidebar');
+  if (menuBtn && sidebar) {
+    menuBtn.addEventListener('click', () => {
+      sidebar.classList.toggle('open');
+    });
+  }
+
+  // Optional: Close sidebar when a link is clicked (for small screens)
+  const links = document.querySelectorAll('.sidebar a');
+  links.forEach(link => {
+    link.addEventListener('click', () => {
+      if (window.innerWidth <= 900 && sidebar.classList.contains('open')) {
+        sidebar.classList.remove('open');
+      }
+    });
+  });
+});
