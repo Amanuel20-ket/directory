@@ -41,9 +41,7 @@
               <div class="site-card-action"><a href="technology.html">Explore</a></div>
             </div>
           </div>
-        </div>
-
-        <div class="site-row">
+        
           <div class="site-card">
             <div class="site-card-container">
               <img class="site-logo" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%230066ff'/%3E%3Ctext x='50' y='58' font-size='48' text-anchor='middle' fill='%23fff' font-family='Arial'%3EE%3C/text%3E%3C/svg%3E" alt="Entertainment category">
@@ -59,6 +57,7 @@
               <div class="site-card-action"><a href="sports.html">Explore</a></div>
             </div>
           </div>
+        </div>
         </div>
       </section>
 
@@ -1030,4 +1029,5 @@
   });
 
 })();
+
 
